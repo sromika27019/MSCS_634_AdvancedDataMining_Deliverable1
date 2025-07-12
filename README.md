@@ -3,7 +3,7 @@
 **Course:** Advanced Data Mining for Data-Driven Insights and Predictive Modeling  
 **Deliverable:** 1 – Data Collection, Cleaning, and Exploration  
 **Author:** Romika Souda  
-
+**Date:** 2025-07-12  
 
 ---
 
@@ -13,87 +13,62 @@
 - **Filename:** `winequality-red.csv`  
 - **Records:** 4,898  
 - **Attributes (12):**  
-  - Fixed acidity  
-  - Volatile acidity  
-  - Citric acid  
-  - Residual sugar  
-  - Chlorides  
-  - Free sulfur dioxide  
-  - Total sulfur dioxide  
-  - Density  
+  - fixed_acidity  
+  - volatile_acidity  
+  - citric_acid  
+  - residual_sugar  
+  - chlorides  
+  - free_sulfur_dioxide  
+  - total_sulfur_dioxide  
+  - density  
   - pH  
-  - Sulphates  
-  - Alcohol  
-  - Quality (target: 0–10)
+  - sulphates  
+  - alcohol  
+  - quality (target: 0–10)
 
 **Justification:**  
-I selected the Wine Quality dataset because it has over 4,500 samples and 12 physicochemical attributes plus a clear target variable. Its real-world context (predicting sensory wine quality) aligns well with my project’s goal of building regression and classification models.
+I selected the Wine Quality dataset because it meets the size (4,898 samples) and feature (12 attributes) requirements, and its real-world task of predicting sensory quality provides a clear modeling objective.
 
 ---
 
 ## 2. Data Cleaning Steps
 
-1. **Loaded data** with `pd.read_csv('winequality-red.csv', sep=';')`.  
-2. **Checked missing values**: none were found in any column.  
-3. **Dropped 240 exact duplicate rows** to avoid data leakage.  
-4. **Standardized column names** to snake_case for consistency:  
-   e.g. `Fixed Acidity → fixed_acidity`.  
-5. **Imputed missing values** (if any) using median of each column:  
-   - citric_acid: 0.02  
-   - residual_sugar: 2.10  
-   - …  
-6. **Verified data types** and converted any numeric strings to floats.  
+1. **Loaded data** using `pd.read_csv('winequality-red.csv', sep=';')`.  
+2. **Checked for missing values**; none were present.  
+3. **Dropped 240 duplicate rows** to avoid data leakage.  
+4. **Standardized column names** to snake_case for consistency.  
+5. **Imputed missing values** (if any) with each column’s median.  
+6. **Verified data types** and converted any numeric strings to floats.
 
 ---
 
 ## 3. Exploratory Data Analysis (EDA)
 
-### 3.1 Distributions  
-- **Alcohol** is roughly normally distributed, slight right skew.  
-- **Volatile acidity** shows a left skew; very high values are rare.  
+- I plotted histograms and KDEs for key numeric features to assess distributions and skewness.  
+- I generated a correlation matrix to identify strong positive (e.g., alcohol vs. quality) and negative (e.g., volatile_acidity vs. quality) relationships.  
+- I created boxplots of select features against the target to confirm insights from the correlation analysis.
 
-<div align="center">
-<img src="images/distributions.png" alt="Histograms of alcohol, pH, residual sugar, volatile acidity" width="600"/>
-</div>
 
-### 3.2 Correlation Analysis  
-- **Alcohol vs. Quality:** +0.48 (strong positive)  
-- **Volatile acidity vs. Quality:** –0.39 (strong negative)  
-- **Citric acid vs. Quality:** +0.23  
-
-<div align="center">
-<img src="images/correlation_heatmap.png" alt="Correlation heatmap" width="600"/>
-</div>
-
-### 3.3 Feature vs. Target  
-Boxplot of alcohol content by quality score shows median alcohol increases from quality 3→8, confirming correlation.
-
-<div align="center">
-<img src="images/boxplot_alcohol_quality.png" alt="Boxplot alcohol by quality" width="500"/>
-</div>
 
 ---
 
 ## 4. Key Insights
 
-- **Top predictors:** Alcohol and volatile acidity are most strongly correlated with quality.  
-- **Outliers:** A small number of extreme alcohol (>14%) and acidity (>1.2) values—will consider clipping or robust models.  
-- **Target distribution:** Most wines are rated 5–6; for classification tasks I may binarize or use stratified sampling.  
+- **Strong predictors:** Alcohol (ρ ≈ +0.48) and volatile acidity (ρ ≈ –0.39) show the highest correlation with quality.  
+- **Skew & outliers:** Some features (e.g., residual_sugar) are right-skewed; outliers will be addressed in preprocessing.  
+- **Target distribution:** Most wines are rated 5–6; I plan to use stratified sampling or appropriate weighting in future models.
 
-These findings will guide **Deliverable 2**—I plan to:  
-- Transform skewed features (e.g., log‐transform residual sugar).  
-- Engineer interaction terms (e.g., alcohol × sulphates).  
-- Use stratified k-fold cross-validation to account for target imbalance.
+These findings will guide Deliverable 2’s modeling choices, including feature transformations, interaction terms, and cross-validation strategies.
 
 ---
 
 ## 5. Challenges & Resolutions
 
-- **Duplicates:** Removing them reduced my dataset from 4,898 → 4,658 rows.  
-- **Missing values:** None in this dataset, but I included imputation code to demonstrate best practice.  
-- **Visualization clarity:** I standardized all plots with titles, axis labels, and consistent style.
+- **Duplicates:** Removing them reduced the dataset to 4,658 unique records.  
+- **Missing values:** Although none were present, I demonstrated imputation logic to show best practices.  
+- **Visualization clarity:** I annotated each plot with descriptive titles and axis labels in the report.
 
 ---
 
-
+## 6. Repository Structure
 
