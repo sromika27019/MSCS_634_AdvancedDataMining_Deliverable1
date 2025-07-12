@@ -70,5 +70,4 @@ These findings will guide Deliverable 2’s modeling choices, including feature 
 
 ---
 
-## 6. Repository Structure
 
